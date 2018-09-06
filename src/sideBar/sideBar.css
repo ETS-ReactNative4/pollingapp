@@ -1,0 +1,15 @@
+.modal.fade:not(.in) .modal-dialog {
+    -webkit-transform: translate3d(-25%, 0, 0);
+    transform: translate3d(-25%, 0, 0);
+}
+
+.modal .modal-dialog {
+    position: fixed;
+    margin-top: 2.2%;
+    width: 41%;
+    height: 100vh;
+}
+
+.modal-body {
+    height: 100vh;
+}
