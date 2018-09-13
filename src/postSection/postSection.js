@@ -1,38 +1,53 @@
 import React, { Component } from 'react';
 import { Well, Grid, Row, Col } from 'react-bootstrap';
+import Post from '../post/Post.js';
 import './postSection.css';
 
 
 class postSection extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        posts: [],
+        isLoaded: false,
+    }
+  }
+
+  componentDidMount(){
+      fetch('http://localhost:8000/api/post/')
+        .then(res => res.json())
+        .then(json => {
+            this.setState({
+                isLoaded: true,
+                posts: json,
+            })
+        });
+  }
+
   render() {
-    return (
-        <div>
-            <Well bsSize="large">
-                <Grid fluid>
-                    <Row className="show-grid">
-                        <Col md={2}>
-                            Total votes:
-                                100
-                        </Col>
-                        <Col md={5}>
-                            Do you think Incredibles 2 is a good movie?
-                        </Col>
-                        <Col md={3}>
-                            Comments (350)
-                        </Col>
-                        <Col md={2}>
-                            #Movies
-                        </Col>
-                    </Row>
-                </Grid>
-            </Well>
-            <Well bsSize="large">Look I'm in a large well!</Well>
-            <Well bsSize="large">Look I'm in a large well!</Well>
-            <Well bsSize="large">Look I'm in a large well!</Well>
-            <Well bsSize="large">Look I'm in a large well!</Well>
-            <Well bsSize="large">Look I'm in a large well!</Well>
-        </div>
-    );
+
+    var {isLoaded, posts} = this.state;
+
+    if(!isLoaded) {
+        return <div>Loading...</div>;
+    }
+
+    else{
+
+        return (
+            <div>
+                {posts.map(post => (
+                    <Post 
+                        upvotes={post.post_upvotes} 
+                        title={post.post_title}
+                        profile={post.post_profile}
+                        tags={post.post_tags}
+                    />
+                ))}
+            </div>
+        );
+
+    }
   }
 }
 
