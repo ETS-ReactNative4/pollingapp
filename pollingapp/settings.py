@@ -145,7 +145,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
         #DjangoModelPermissionsOrAnonReadOnly
-    ]
+    ],
 }
 
-CORS_ORIGIN_WHITELIST = 'localhost:8000'
+CORS_ORIGIN_WHITELIST = 'localhost:3000'

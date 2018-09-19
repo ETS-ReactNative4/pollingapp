@@ -1,6 +1,8 @@
 from rest_framework import generics
 from rest_framework import mixins
+from rest_framework_extensions.mixins import PaginateByMaxMixin
 from example.models import ProfileModel, PostModel, CommentModel
+from .pagination import StandardResultsSetPagination
 from .serializers import ProfileSerializer, PostSerializer, CommentSerializer
 
 
@@ -14,6 +16,7 @@ class ListProfile(mixins.CreateModelMixin, generics.ListAPIView):
 class ListPost(mixins.CreateModelMixin, generics.ListAPIView):
     queryset = PostModel.objects.all()
     serializer_class = PostSerializer
+    pagination_class = StandardResultsSetPagination
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
