@@ -39,10 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django_mysql',
     'rest_framework',
     'api',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,17 +92,26 @@ WSGI_APPLICATION = 'pollingapp.wsgi.application'
 
 DATABASES = {
     'default': {
-    'ENGINE': 'django_cassandra_engine',
-    'NAME': 'db',
-    'TEST_NAME': 'test_db',
-    'HOST': 'localhost',
-    'OPTIONS': {
-        'replication': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'usersdb',
+        'USER': 'atbarnes2',
+        'PASSWORD': 'picklejar1996',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+
+    'db': {
+        'ENGINE': 'django_cassandra_engine',
+        'NAME': 'db',
+        'TEST_NAME': 'test_db',
+        'HOST': 'localhost',
+        'OPTIONS': {
+            'replication': {
             'strategy_class': 'SimpleStrategy',
             'replication_factor': 1
         }
      }
-     }
+    }
 }
 
 
@@ -142,6 +160,9 @@ STATICFILES_DIRS = [
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
         #DjangoModelPermissionsOrAnonReadOnly
@@ -149,3 +170,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = 'localhost:3000'
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = False

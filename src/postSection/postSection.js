@@ -9,16 +9,35 @@ class postSection extends Component {
     super(props);
     this.state = {
         posts: [],
+        tag: this.props.tag,
         page: 1,
         next: null,
         isLoaded: false,
         scrolling: false
     }
-
     this.loadMore = this.loadMore.bind(this);
     this.loadPosts = this.loadPosts.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+  }
 
+  static getDerivedStateFromProps(nextProps, prevState){
+      if(nextProps.tag !== prevState.tag){
+          return { 
+              tag: nextProps.tag 
+          };
+      }
+
+      return null
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.tag !== prevProps.tag) {
+      this.setState({
+          posts: []
+      })
+      
+      this.loadPosts();
+    }
   }
 
   componentDidMount(){
@@ -40,12 +59,15 @@ class postSection extends Component {
   }
 
   loadPosts(){
-    const url = 'http://localhost:8000/api/post/?page=' + this.state.page
+    let url = 'http://localhost:8000/api/post/?page=' + this.state.page
+    if(this.state.tag != null){
+        url += "&post_tags=" + this.state.tag;
+    }
+    console.log(url);
     fetch(url)
       .then(res => res.json())
       .then(json => {
           console.log(json);
-          console.log(this.state.posts)
           this.setState({
               isLoaded: true,
               posts: [...this.state.posts, ...json.results],
@@ -81,6 +103,7 @@ class postSection extends Component {
 
                     <li key={post.post_id}>
                         <Post 
+                            id={post.post_id}
                             upvotes={post.post_upvotes} 
                             title={post.post_title}
                             profile={post.post_profile}

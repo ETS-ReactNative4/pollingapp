@@ -1,0 +1,14 @@
+.side {
+    border-right: 1px solid black;
+    height: 1000px;
+    background:	#F0F8FF;
+}
+
+.sideContent {
+    margin-top: 10px;
+}
+
+.main {
+    margin-top: 20px;
+}
+

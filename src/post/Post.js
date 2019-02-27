@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Well, Grid, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './Post.css';
 
 
@@ -15,10 +16,10 @@ class Post extends Component {
                 <Grid fluid>
                     <Row className="show-grid">
                         <Col md={2}>
-                            Total votes: {this.props.upvotes}
+                            Total votes: 700
                         </Col>
                         <Col md={5}>
-                            {this.props.title}
+                            <Link to={"/poll/" + this.props.id}>{this.props.title}</Link> 
                         </Col>
                         <Col md={3}>
                             {this.props.profile}

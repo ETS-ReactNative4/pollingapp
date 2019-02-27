@@ -5,6 +5,12 @@
 
 }
 
+.filter {
+    position: absolute;
+    left:50%; 
+    margin: 10px auto
+}
+
 .navbar-default .navbar-header .navbar-brand {
     color: #fff;
     margin-left: -150px;
@@ -18,4 +24,16 @@
 
 .navbar .navbar-nav>li>a, .navbar .navbar-nav>li>a:hover  {
     color: #fff;
+ }
+
+ body {
+    padding-top: 50px;
+ }
+
+ .select {
+     position: inline;
+     width: 40%;
+     margin: 0 auto;
+     margin-top: 5px;
+     margin-bottom: -50px;
  }
